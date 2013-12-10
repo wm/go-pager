@@ -44,17 +44,6 @@ func AttemptCall(req *http.Request, w http.ResponseWriter, config *go_pager.Conf
 	return respond(commands)
 }
 
-func respond(commands string) string {
-	response := fmt.Sprintf(`
-	<?xml version='1.0' encoding='UTF-8'?>
-	<Response>%v</Response>
-	`, commands)
-
-	log.Printf("response: %v", response)
-
-	return strings.TrimSpace(response)
-}
-
 func ScreenForMachine() string {
 	return `
 	<Gather action='/oncall/complete_call'>
@@ -66,6 +55,17 @@ func ScreenForMachine() string {
 
 func CompleteCall() string {
 	return `<Say>Connecting</Say>`
+}
+
+func respond(commands string) string {
+	response := fmt.Sprintf(`
+	<?xml version='1.0' encoding='UTF-8'?>
+	<Response>%v</Response>
+	`, commands)
+
+	log.Printf("response: %v", response)
+
+	return strings.TrimSpace(response)
 }
 
 func hangUp() string {
